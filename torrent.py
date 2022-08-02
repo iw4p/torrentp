@@ -11,14 +11,14 @@ class Session():
     def create_session(self):
         return lt.session({'listen_interfaces':f'{self._listen_interfaces}:{self._port}'})
         
-    def __str__():
+    def __str__(self):
         pass
 
-    def __repr__():
+    def __repr__(self):
         pass
 
     def __call__(self):
-        return create_session(self)
+        return self.create_session()
 
 
 class Torrent_info():
@@ -29,30 +29,57 @@ class Torrent_info():
     def show_info():
         pass
 
-    def create_torrent_info(self, path):
-        self._info = lt.torrent_info(path)
+    def create_torrent_info(self):
+        self._info = lt.torrent_info(self._path)
         return self._info
 
-    def __str__():
+    def __str__(self):
         pass
 
-    def __repr__():
+    def __repr__(self):
         pass
     
-    def __call__(self, path):
+    def __call__(self):
         # return lt.torrent_info(self._path)
-        return create_torrent_info(self, self._path)
+        return self.create_torrent_info()
 
 class Downloader():
-    def __init__(self):
-        pass
-        
-    def __str__():
+    def __init__(self, session: Session, torrent_info: Torrent_info, save_path):
+        self._session = session 
+        self._torrent_info = torrent_info 
+        self._save_path = save_path
+        self._file = None
+        self._status = None
+
+    # def create_downloadable_file(self):
+    #     self._file = self._session.add_torrent({'ti': self._torrent_info, 'save_path': f'{self._save_path}'})
+    #     return self._file.status()
+
+    def status(self):
+        if self._save_path == None:
+            self._save_path = '.'
+
+        self._file = self._session.add_torrent({'ti': self._torrent_info, 'save_path': f'{self._save_path}'})
+
+        return self._file.status()
+
+    def get_name(self):
+        return self.status().name
+
+    def __str__(self):
         pass
 
-    def __repr__():
+    def __repr__(self):
         pass
 
     def __call__(self):
         pass
 
+session1 = Session()
+
+t_info = Torrent_info('test.torrent')
+print(t_info())
+
+downloader = Downloader(session1(), t_info(), '.')
+
+print(downloader.get_name())
