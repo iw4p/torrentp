@@ -1,10 +1,10 @@
 """
 torrentp.
 
-A great library-wrapper for downloading from torrent.
+A great wrapped library for downloading from torrent.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __author__ = 'Nima Akbarzade'
 __author_email__ = "iw4p@protonmail.com"
 __license__ = "BSD 2-clause"

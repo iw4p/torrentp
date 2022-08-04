@@ -1,6 +1,6 @@
 # TorrentP
 
-##  Python library-wrapper torrent downloader
+##  Wrapped python library for downloading from torrent
 ### Download from torrent with .torrent file or magnet link. With just 3 lines of python code.
 
 [![PyPI version](https://img.shields.io/pypi/v/TorrentP.svg)](https://pypi.org/project/TorrentP)
