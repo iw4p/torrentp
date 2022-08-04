@@ -4,7 +4,7 @@ torrentp.
 A great wrapped library for downloading from torrent.
 """
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __author__ = 'Nima Akbarzade'
 __author_email__ = "iw4p@protonmail.com"
 __license__ = "BSD 2-clause"

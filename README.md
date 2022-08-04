@@ -1,6 +1,10 @@
 # TorrentP
 
 ##  Wrapped python library for downloading from torrent
+
+[![Torrentp](https://github.com/iw4p/torrentp/raw/master/images/tintin.jpeg
+)](https://pypi.org/project/torrentp/)
+
 ### Download from torrent with .torrent file or magnet link. With just 3 lines of python code.
 
 [![PyPI version](https://img.shields.io/pypi/v/TorrentP.svg)](https://pypi.org/project/TorrentP)
@@ -31,6 +35,11 @@ from torrentp import Torrent_downloader
 torrent_file = Torrent_downloader("test.torrent", '.')
 torrent_file.start_download()
 ```
+
+### To do list
+- [ ] User can change the port
+- [ ] CLI
+- [ ] Pause / Resume
 
 ### Issues
 Feel free to submit issues and enhancement requests.
