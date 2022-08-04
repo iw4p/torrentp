@@ -7,7 +7,7 @@ import pathlib
 HERE = pathlib.Path(__file__).parent
 
 # The text of the README file
-README = (HERE / "README.rst").read_text()
+README = (HERE / "README.md").read_text()
 
 def read(rel_path):
     here = os.path.abspath(os.path.dirname(__file__))
@@ -38,7 +38,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',  
-        'Operating System :: POSIX :: Linux :: Microsoft :: Windows',
+        'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
