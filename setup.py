@@ -1,6 +1,13 @@
 from setuptools import setup
 import codecs
 import os.path
+import pathlib
+
+# The directory containing this file
+HERE = pathlib.Path(__file__).parent
+
+# The text of the README file
+README = (HERE / "README.rst").read_text()
 
 def read(rel_path):
     here = os.path.abspath(os.path.dirname(__file__))
@@ -19,13 +26,14 @@ setup(
     name='torrentp',
     version=get_version("torrentp/__init__.py"),
     description='Download from torrent with magnet link or .torrent file',
+    long_description=README,
+    long_description_content_type="text/markdown",
     url='https://github.com/iw4p/torrentp',
     author='Nima Akbarzadeh',
     author_email='iw4p@protonmail.com',
     license='BSD 2-clause',
     packages=['torrentp'],
     install_requires=['libtorrent>=2.0.7',],
-
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
