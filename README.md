@@ -25,14 +25,14 @@ Also can be found on [pypi](https://pypi.org/project/torrentp/)
 
 Download with magnet link:
 ```python
-from torrentp import Torrent_downloader
-torrent_file = Torrent_downloader("magnet:...", '.')
+from torrentp import TorrentDownloader
+torrent_file = TorrentDownloader("magnet:...", '.')
 torrent_file.start_download()
 ```
 Or download with .torrent file:
 ```python
-from torrentp import Torrent_downloader
-torrent_file = Torrent_downloader("test.torrent", '.')
+from torrentp import TorrentDownloader
+torrent_file = TorrentDownloader("test.torrent", '.')
 torrent_file.start_download()
 ```
 
