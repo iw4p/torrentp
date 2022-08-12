@@ -1,4 +1,4 @@
-class Session():
+class Session:
     def __init__(self, libtorrent):
         self._user_agent = 'python client v0.1'
         self._listen_interfaces = '0.0.0.0'
