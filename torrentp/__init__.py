@@ -3,6 +3,10 @@ torrentp.
 
 A great wrapped library for downloading from torrent.
 """
+from .torrent_downloader import TorrentDownloader
+from .torrent_info import TorrentInfo
+from .downloader import Downloader
+from .session import Session
 
 __version__ = "0.1.4"
 __author__ = 'Nima Akbarzade'
@@ -12,12 +16,10 @@ __url__ = "https://github.com/iw4p/torrentp"
 
 PYPI_SIMPLE_ENDPOINT: str = "https://pypi.org/project/torrentp"
 
-from .torrent_downloader import Torrent_downloader, Session, Downloader, Torrent_info 
-
 __all__ = [
-    "Torrent_downloader",
+    "TorrentDownloader",
     "Session",
     "Downloader",
-    "Torrent_info",
+    "TorrentInfo",
     "PYPI_SIMPLE_ENDPOINT",
 ]

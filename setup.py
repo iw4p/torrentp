@@ -1,43 +1,39 @@
-from setuptools import setup
-import codecs
 import os.path
 import pathlib
+import re
 
+from setuptools import setup
+
+PROJECT_NAME = 'torrentp'
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
 
-def read(rel_path):
-    here = os.path.abspath(os.path.dirname(__file__))
-    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
-        return fp.read()
 
-def get_version(rel_path):
-    for line in read(rel_path).splitlines():
-        if line.startswith('__version__'):
-            delim = '"' if '"' in line else "'"
-            return line.split(delim)[1]
-    else:
-        raise RuntimeError("Unable to find version string.")
+def get_property(prop):
+    result = re.search(r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
+                       open(os.path.join(PROJECT_NAME, '__init__.py')).read())
+    return result.group(1)
+
 
 setup(
     name='torrentp',
-    version=get_version("torrentp/__init__.py"),
+    version=get_property('__version__'),
     description='Download from torrent with magnet link or .torrent file',
     long_description=README,
     long_description_content_type="text/markdown",
-    url='https://github.com/iw4p/torrentp',
-    author='Nima Akbarzadeh',
-    author_email='iw4p@protonmail.com',
-    license='BSD 2-clause',
+    url=get_property('__url__'),
+    author=get_property('__author__'),
+    author_email=get_property('__author_email__'),
+    license=get_property('__license__'),
     packages=['torrentp'],
-    install_requires=['libtorrent>=2.0.7',],
+    install_requires=['libtorrent>=2.0.7', ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',  
+        'License :: OSI Approved :: BSD License',
         'Operating System :: POSIX :: Linux',
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python :: 2.7',
