@@ -41,6 +41,10 @@ torrent_file.start_download()
 - [ ] CLI
 - [ ] Pause / Resume
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=iw4p/torrentp&type=Date)](https://star-history.com/#iw4p/torrentp&Date)
+
 ### Issues
 Feel free to submit issues and enhancement requests.
 
