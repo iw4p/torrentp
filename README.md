@@ -46,7 +46,7 @@ torrent_file.start_download()
 [![Star History Chart](https://api.star-history.com/svg?repos=iw4p/torrentp&type=Date)](https://star-history.com/#iw4p/torrentp&Date)
 
 ### Issues
-Feel free to submit issues and enhancement requests.
+Feel free to submit issues and enhancement requests or contact me via [vida.page/nima](https://vida.page/nima).
 
 ### Contributing
 Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
