@@ -16,6 +16,6 @@ class TorrentInfo:
 
     def __repr__(self):
         pass
-    
+
     def __call__(self):
         return self.create_torrent_info()

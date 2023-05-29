@@ -36,7 +36,21 @@ torrent_file = TorrentDownloader("test.torrent", '.')
 torrent_file.start_download()
 ```
 
+
+#### How can I limit the upload or download speed?
+
+Download Using 0 (default number) means unlimited speed:
+```python
+torrent_file.start_download(download_speed=0, upload_speed=0)
+```
+Or download with specifc number:
+```python
+torrent_file.start_download(download_speed=2, upload_speed=1)
+```
+
+
 ### To do list
+- [x] Limit upload and download speed
 - [ ] User can change the port
 - [ ] CLI
 - [ ] Pause / Resume
