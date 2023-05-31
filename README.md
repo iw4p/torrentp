@@ -43,7 +43,7 @@ Download Using 0 (default number) means unlimited speed:
 ```python
 torrent_file.start_download(download_speed=0, upload_speed=0)
 ```
-Or download with specifc number:
+Or download with specifc number (kB/s):
 ```python
 torrent_file.start_download(download_speed=2, upload_speed=1)
 ```
