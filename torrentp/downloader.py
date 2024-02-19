@@ -31,7 +31,7 @@ class Downloader:
         self._name = self.status().name
         return self._name
 
-    def download(self):
+    async def download(self):
         print(f'Start downloading {self.name}')
         while not self._status.is_seeding:
             s = self.status()
