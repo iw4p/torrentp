@@ -33,11 +33,25 @@ class TorrentDownloader:
         self._file = self._downloader
         await self._file.download()
 
+    def pause_download(self):
+        if self._downloader:
+            self._downloader.pause()
+
+    def resume_download(self):
+        if self._downloader:
+            self._downloader.resume()
+
+    def stop_download(self):
+        if self._downloader:
+            self._downloader.stop()
+
     def __str__(self):
         pass
 
     def __repr__(self):
         pass
 
+    def __call__(self):
+        pass
     def __call__(self):
         pass
