@@ -1,6 +1,6 @@
 import sys
 import time
-
+import asyncio
 
 class Downloader:
     def __init__(self, session, torrent_info, save_path, libtorrent, is_magnet):
@@ -14,6 +14,7 @@ class Downloader:
         self._lt = libtorrent
         self._add_torrent_params = None
         self._is_magnet = is_magnet
+        self._paused = False
 
     def status(self):
         if not self._is_magnet:
@@ -34,16 +35,27 @@ class Downloader:
     async def download(self):
         print(f'Start downloading {self.name}')
         while not self._status.is_seeding:
-            s = self.status()
-
-            print('\r%.2f%% complete (down: %.1f kB/s up: %.1f kB/s peers: %d) %s' % (
-                s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000,
-                s.num_peers, s.state), end=' ')
-
-            sys.stdout.flush()
-            time.sleep(1)
+            if not self._paused:
+                s = self.status()
+                print('\r%.2f%% complete (down: %.1f kB/s up: %.1f kB/s peers: %d) %s' % (
+                    s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000,
+                    s.num_peers, s.state), end=' ')
+                sys.stdout.flush()
+            asyncio.sleep(1)
 
         print(self._status.name, 'downloaded successfully.')
+
+    def pause(self):
+        self._file.pause()
+        self._paused = True
+
+    def resume(self):
+        self._file.resume()
+        self._paused = False
+
+    def stop(self):
+        self._session.remove_torrent(self._file)
+        self._file = None
 
     def __str__(self):
         pass
