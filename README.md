@@ -28,7 +28,7 @@ Download with magnet link:
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("magnet:...", '.')
 # Start the download process
-torrent_file.start_download()
+await torrent_file.start_download()
 
 # Pausing the download
 torrent_file.pause_download()
