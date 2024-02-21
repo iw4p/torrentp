@@ -27,13 +27,33 @@ Download with magnet link:
 ```python
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("magnet:...", '.')
+# Start the download process
 torrent_file.start_download()
+
+# Pausing the download
+torrent_file.pause_download()
+
+# Resuming the download
+torrent_file.resume_download()
+
+# Stopping the download
+torrent_file.stop_download()
 ```
 Or download with .torrent file:
 ```python
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("test.torrent", '.')
+# Start the download process
 torrent_file.start_download()
+
+# Pausing the download
+torrent_file.pause_download()
+
+# Resuming the download
+torrent_file.resume_download()
+
+# Stopping the download
+torrent_file.stop_download()
 ```
 
 
@@ -53,7 +73,7 @@ torrent_file.start_download(download_speed=2, upload_speed=1)
 - [x] Limit upload and download speed
 - [ ] User can change the port
 - [ ] CLI
-- [ ] Pause / Resume
+- [x] Pause / Resume / Stop
 
 ## Star History
 
