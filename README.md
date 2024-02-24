@@ -44,7 +44,7 @@ Or download with .torrent file:
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("test.torrent", '.')
 # Start the download process
-torrent_file.start_download()
+await torrent_file.start_download()
 
 # Pausing the download
 torrent_file.pause_download()
@@ -61,11 +61,11 @@ torrent_file.stop_download()
 
 Download Using 0 (default number) means unlimited speed:
 ```python
-torrent_file.start_download(download_speed=0, upload_speed=0)
+await torrent_file.start_download(download_speed=0, upload_speed=0)
 ```
 Or download with specifc number (kB/s):
 ```python
-torrent_file.start_download(download_speed=2, upload_speed=1)
+await torrent_file.start_download(download_speed=2, upload_speed=1)
 ```
 
 
