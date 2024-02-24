@@ -41,7 +41,7 @@ class Downloader:
                     s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000,
                     s.num_peers, s.state), end=' ')
                 sys.stdout.flush()
-            asyncio.sleep(2)
+            await asyncio.sleep(2)
 
         print(self._status.name, 'downloaded successfully.')
 
