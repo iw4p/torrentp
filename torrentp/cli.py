@@ -1,4 +1,4 @@
-from torrent_downloader import TorrentDownloader
+from .torrent_downloader import TorrentDownloader
 import asyncclick as click
 import asyncio
 import sys
