@@ -37,13 +37,13 @@ class Downloader:
 
         while not self._status.is_seeding:
             if not self._paused:
-                self.get_status_progress(self.status())
+                self._get_status_progress(self.status())
                 sys.stdout.flush()
 
             await asyncio.sleep(1)
         print('\033[92m' +  "\nDownloaded successfully." + '\033[0m')
 
-    def get_status_progress(self, s):
+    def _get_status_progress(self, s):
         _percentage = s.progress * 100
         _download_speed = s.download_rate / 1000
         _upload_speed = s.upload_rate / 1000
@@ -58,9 +58,10 @@ class Downloader:
         _file_size = byte_length / 1000
         _size_info = 'Size: %.2f ' % _file_size
         _size_info += 'MB' if _file_size > 1000 else 'KB'
-    
+
         print('\033[95m' + _size_info  + '\033[0m')
-        print('\033[95m' + f'Saving as: {self.status().name}' + '\033[0m')
+        if self.status().name:
+            print('\033[95m' + f'Saving as: {self.status().name}' + '\033[0m')
 
 
     def pause(self):
