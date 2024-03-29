@@ -29,6 +29,9 @@ setup(
     author_email=get_property('__author_email__'),
     license=get_property('__license__'),
     packages=['torrentp'],
+    entry_points={
+        'console_scripts': ['torrentp=torrentp.cli:run_cli']
+    },
     install_requires=['libtorrent>=2.0.7', ],
     classifiers=[
         'Development Status :: 4 - Beta',
