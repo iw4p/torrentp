@@ -55,8 +55,6 @@ torrent_file.resume_download()
 # Stopping the download
 torrent_file.stop_download()
 ```
-
-
 #### How can I limit the upload or download speed?
 
 Download Using 0 (default number) means unlimited speed:
@@ -67,12 +65,39 @@ Or download with specifc number (kB/s):
 ```python
 await torrent_file.start_download(download_speed=2, upload_speed=1)
 ```
+### Using Command Line Interface (CLI)
+Download with a magnet link:
+```sh
+$ torrentp --link 'magnet:...'
+```
 
+or download with .torrent file:
+```sh
+$ torrentp --link 'test.torrent'
+```
+#### You can also use ```--help``` parameter to display all the parameters that you can use
+```sh
+Options:
+  --link TEXT               Torrent link. Example: [--link 'file.torrent'] or [--link 'magnet:...']  [required]
+
+  --download_speed INTEGER  Download speed with a specific number (kB/s). Default: 0, means unlimited speed
+
+  --upload_speed INTEGER    Upload speed with a specific number (kB/s). Default: 0, means unlimited speed
+
+  --save_path TEXT          Path to save the file, default: '.'
+
+  --help                    Show this message and exit.
+```
+
+Example with all commands:
+```sh
+$ torrentp --link 'magnet:...' --download_speed 100 --upload_speed 50 --save_path '.'
+```
 
 ### To do list
 - [x] Limit upload and download speed
 - [ ] User can change the port
-- [ ] CLI
+- [x] CLI
 - [x] Pause / Resume / Stop
 
 ## Star History
