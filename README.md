@@ -25,11 +25,12 @@ Also can be found on [pypi](https://pypi.org/project/torrentp/)
 
 Download with magnet link:
 ```python
+import asyncio
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("magnet:...", '.')
 
 # Start the download process
-await torrent_file.start_download()
+asyncio.run(torrent_file.start_download()) # start_download() is a asynchronous method 
 
 # Pausing the download
 torrent_file.pause_download()
@@ -42,10 +43,11 @@ torrent_file.stop_download()
 ```
 Or download with .torrent file:
 ```python
+import asyncio
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("test.torrent", '.')
 # Start the download process
-await torrent_file.start_download()
+asyncio.run(torrent_file.start_download()) # start_download() is a asynchronous method 
 
 # Pausing the download
 torrent_file.pause_download()
@@ -56,7 +58,8 @@ torrent_file.resume_download()
 # Stopping the download
 torrent_file.stop_download()
 ```
-Or download with custom port:
+
+#### How can I use a custom port?
 ```python
 TorrentDownloader("magnet/torrent.file", '.', port=0000)
 ```
@@ -71,12 +74,35 @@ Or download with specifc number (kB/s):
 ```python
 await torrent_file.start_download(download_speed=2, upload_speed=1)
 ```
+### Using Command Line Interface (CLI)
+Download with a magnet link:
+```sh
+$ torrentp --link 'magnet:...'
+```
 
+or download with .torrent file:
+```sh
+$ torrentp --link 'test.torrent'
+```
+#### You can also use ```--help``` parameter to display all the parameters that you can use
+
+| args | help | type |
+| ------ | ------ | ------ |
+| --link | Torrent link. Example: [--link 'file.torrent'] or [--link 'magnet:...']  [required] | ```str``` |
+| --download_speed | Download speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
+| --upload_speed | Upload speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
+| --save_path | Path to save the file, default: '.' | ```str``` |
+| --help |Show this message and exit |  |
+
+Example with all commands:
+```sh
+$ torrentp --link 'magnet:...' --download_speed 100 --upload_speed 50 --save_path '.'
+```
 
 ### To do list
 - [x] Limit upload and download speed
 - [x] User can change the port
-- [ ] CLI
+- [x] CLI
 - [x] Pause / Resume / Stop
 
 ## Star History
