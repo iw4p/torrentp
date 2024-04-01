@@ -27,6 +27,7 @@ Download with magnet link:
 ```python
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("magnet:...", '.')
+
 # Start the download process
 await torrent_file.start_download()
 
@@ -55,7 +56,10 @@ torrent_file.resume_download()
 # Stopping the download
 torrent_file.stop_download()
 ```
-
+Or download with custom port:
+```python
+TorrentDownloader("magnet/torrent.file", '.', port=0000)
+```
 
 #### How can I limit the upload or download speed?
 
@@ -71,7 +75,7 @@ await torrent_file.start_download(download_speed=2, upload_speed=1)
 
 ### To do list
 - [x] Limit upload and download speed
-- [ ] User can change the port
+- [x] User can change the port
 - [ ] CLI
 - [x] Pause / Resume / Stop
 
