@@ -66,18 +66,38 @@ class Downloader:
         if self.status().name:
             print('\033[95m' + f'Saving as: {self.status().name}' + '\033[0m')
 
-
     def pause(self):
-        self._file.pause()
-        self._paused = True
+        print("Pausing download...")
+        if self._file:
+            self._file.pause()
+            self._paused = True
+            print("Download paused successfully.")
+        else:
+            print("Download file instance not found.")
 
     def resume(self):
-        self._file.resume()
-        self._paused = False
+        print("Resuming download...")
+        if self._file:
+            if self._paused:
+                self._file.resume()
+                self._paused = False
+                print("Download resumed successfully.")
+            else:
+                print("Download is not paused. No action taken.")
+        else:
+            print("Download file instance not found.")
 
     def stop(self):
-        self._session.remove_torrent(self._file)
-        self._file = None
+        print("Stopping download...")
+        if self._file:
+            self._session.remove_torrent(self._file)
+            self._file = None
+            print("Download stopped successfully.")
+        else:
+            print("Download file instance not found.")
+
+    def is_paused(self):
+        return self._paused
 
     def __str__(self):
         pass
