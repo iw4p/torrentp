@@ -5,15 +5,16 @@ import libtorrent as lt
 
 
 class TorrentDownloader:
-    def __init__(self, file_path, save_path):
+    def __init__(self, file_path, save_path, port=6881):
         self._file_path = file_path
         self._save_path = save_path
+        self._port = port  # Default port is 6881
         self._downloader = None
         self._torrent_info = None
         self._lt = lt
         self._file = None
         self._add_torrent_params = None
-        self._session = Session(self._lt)
+        self._session = Session(self._lt, port=self._port)  # Pass port to Session
 
     async def start_download(self, download_speed=0, upload_speed=0):
         if self._file_path.startswith('magnet:'):
@@ -55,7 +56,5 @@ class TorrentDownloader:
     def __repr__(self):
         pass
 
-    def __call__(self):
-        pass
     def __call__(self):
         pass
