@@ -1,6 +1,7 @@
 import sys
 import asyncio
 import math
+import time
 
 class Downloader:
     def __init__(self, session, torrent_info, save_path, libtorrent, is_magnet):
@@ -25,6 +26,8 @@ class Downloader:
             self._add_torrent_params.save_path = self._save_path
             self._file = self._session.add_torrent(self._add_torrent_params)
             self._status = self._file.status()
+            while(not self._file.has_metadata()):
+                time.sleep(1)
         return self._status
 
     @property
@@ -33,7 +36,7 @@ class Downloader:
         return self._name
 
     async def download(self):
-        self.get_size_info(self.status().total)
+        self.get_size_info(self.status().total_wanted)
 
         while not self._status.is_seeding:
             if not self._paused:
@@ -53,13 +56,13 @@ class Downloader:
         _message = "\r\033[42m %.1f Kb/s \033[0m|\033[46m up: %.1f Kb/s \033[0m| status: %s | peers: %d  \033[96m|%s|\033[0m %d%%" % (_download_speed, _upload_speed, s.state, s.num_peers, visual_loading, _percentage)
         print(_message, end='')
 
-
     def get_size_info(self, byte_length):
-        _file_size = byte_length / 1000
-        _size_info = 'Size: %.2f ' % _file_size
-        _size_info += 'MB' if _file_size > 1000 else 'KB'
+        if not self._is_magnet:
+            _file_size = byte_length / 1000
+            _size_info = 'Size: %.2f ' % _file_size
+            _size_info += 'MB' if _file_size > 1000 else 'KB'
+            print('\033[95m' + _size_info  + '\033[0m')
 
-        print('\033[95m' + _size_info  + '\033[0m')
         if self.status().name:
             print('\033[95m' + f'Saving as: {self.status().name}' + '\033[0m')
 

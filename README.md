@@ -25,10 +25,11 @@ Also can be found on [pypi](https://pypi.org/project/torrentp/)
 
 Download with magnet link:
 ```python
+import asyncio
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("magnet:...", '.')
 # Start the download process
-await torrent_file.start_download()
+asyncio.run(torrent_file.start_download()) # start_download() is a asynchronous method 
 
 # Pausing the download
 torrent_file.pause_download()
@@ -41,10 +42,11 @@ torrent_file.stop_download()
 ```
 Or download with .torrent file:
 ```python
+import asyncio
 from torrentp import TorrentDownloader
 torrent_file = TorrentDownloader("test.torrent", '.')
 # Start the download process
-await torrent_file.start_download()
+asyncio.run(torrent_file.start_download()) # start_download() is a asynchronous method 
 
 # Pausing the download
 torrent_file.pause_download()
@@ -76,18 +78,14 @@ or download with .torrent file:
 $ torrentp --link 'test.torrent'
 ```
 #### You can also use ```--help``` parameter to display all the parameters that you can use
-```sh
-Options:
-  --link TEXT               Torrent link. Example: [--link 'file.torrent'] or [--link 'magnet:...']  [required]
 
-  --download_speed INTEGER  Download speed with a specific number (kB/s). Default: 0, means unlimited speed
-
-  --upload_speed INTEGER    Upload speed with a specific number (kB/s). Default: 0, means unlimited speed
-
-  --save_path TEXT          Path to save the file, default: '.'
-
-  --help                    Show this message and exit.
-```
+| args | help | type |
+| ------ | ------ | ------ |
+| --link | Torrent link. Example: [--link 'file.torrent'] or [--link 'magnet:...']  [required] | ```str``` |
+| --download_speed | Download speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
+| --upload_speed | Upload speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
+| --save_path | Path to save the file, default: '.' | ```str``` |
+| --help |Show this message and exit |  |
 
 Example with all commands:
 ```sh
