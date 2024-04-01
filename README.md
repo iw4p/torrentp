@@ -57,6 +57,11 @@ torrent_file.resume_download()
 # Stopping the download
 torrent_file.stop_download()
 ```
+#### How can I use a custom port?
+
+```python
+torrent_file = TorrentDownloader("magnet/torrent.file", '.', port=0000)
+```
 #### How can I limit the upload or download speed?
 
 Download Using 0 (default number) means unlimited speed:
@@ -94,7 +99,7 @@ $ torrentp --link 'magnet:...' --download_speed 100 --upload_speed 50 --save_pat
 
 ### To do list
 - [x] Limit upload and download speed
-- [ ] User can change the port
+- [x] User can change the port
 - [x] CLI
 - [x] Pause / Resume / Stop
 
