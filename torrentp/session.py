@@ -1,8 +1,8 @@
 class Session:
-    def __init__(self, libtorrent):
+    def __init__(self, libtorrent, port='6881'):
         self._user_agent = 'python client v0.1'
         self._listen_interfaces = '0.0.0.0'
-        self._port = '6881'
+        self._port = port
         self._download_rate_limit = 0
         self._upload_rate_limit = 0
         self._lt = libtorrent
