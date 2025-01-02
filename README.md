@@ -90,11 +90,12 @@ $ torrentp --link 'test.torrent'
 | --download_speed | Download speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
 | --upload_speed | Upload speed with a specific number (kB/s). Default: 0, means unlimited speed | ```int``` |
 | --save_path | Path to save the file, default: '.' | ```str``` |
+| --stop_after_download | Stop the download immediately after completion without seeding | ```flag``` |
 | --help |Show this message and exit |  |
 
 Example with all commands:
 ```sh
-$ torrentp --link 'magnet:...' --download_speed 100 --upload_speed 50 --save_path '.'
+$ torrentp --link 'magnet:...' --download_speed 100 --upload_speed 50 --save_path '.' --stop_after_download
 ```
 
 ### To do list

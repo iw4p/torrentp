@@ -21,9 +21,10 @@ async def handle_input(torrent_file):
 @click.option('--download_speed',  default=0, help='Download speed with a specific number (kB/s). Default: 0, means unlimited speed', type=int)
 @click.option('--upload_speed',  default=0, help='Upload speed with a specific number (kB/s). Default: 0, means unlimited speed', type=int)
 @click.option('--save_path',  default='.', help="Path to save the file, default: '.' ", type=str)
-async def run_cli(link, download_speed, upload_speed, save_path):
+@click.option('--stop_after_download', is_flag=True, help="Stop the download immediately after completion without seeding")
+async def run_cli(link, download_speed, upload_speed, save_path, stop_after_download):
     try:
-        torrent_file = TorrentDownloader(link, save_path)
+        torrent_file = TorrentDownloader(link, save_path, stop_after_download=stop_after_download)
         
         input_task = asyncio.create_task(handle_input(torrent_file))
         download_task = asyncio.create_task(torrent_file.start_download(download_speed=download_speed, upload_speed=upload_speed))
