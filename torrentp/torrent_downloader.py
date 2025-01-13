@@ -51,6 +51,11 @@ class TorrentDownloader:
         if self._downloader:
             self._downloader.stop()
 
+    def get_progress(self):
+        if self._downloader:
+            return self._downloader.get_progress()
+        return 0
+
     def __str__(self):
         pass
 

@@ -39,6 +39,10 @@ torrent_file.resume_download()
 
 # Stopping the download
 torrent_file.stop_download()
+
+# Getting the download progress
+progress = torrent_file.get_progress()
+print(f"Download progress: {progress}%")
 ```
 Or download with .torrent file:
 ```python
@@ -56,6 +60,10 @@ torrent_file.resume_download()
 
 # Stopping the download
 torrent_file.stop_download()
+
+# Getting the download progress
+progress = torrent_file.get_progress()
+print(f"Download progress: {progress}%")
 ```
 #### How can I use a custom port?
 
