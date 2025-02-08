@@ -27,9 +27,16 @@ Download with magnet link:
 ```python
 import asyncio
 from torrentp import TorrentDownloader
+import nest_asyncio
+
+# Apply nest_asyncio to allow nested event loops
+nest_asyncio.apply()
+
 torrent_file = TorrentDownloader("magnet:...", '.')
-# Start the download process
-asyncio.run(torrent_file.start_download()) # start_download() is a asynchronous method 
+
+# Start the download process using the existing event loop
+loop = asyncio.get_event_loop()
+loop.run_until_complete(torrent_file.start_download())  # start_download() is a asynchronous method 
 
 # Pausing the download
 torrent_file.pause_download()
