@@ -4,7 +4,7 @@ import math
 import time
 
 class Downloader:
-    def __init__(self, session, torrent_info, save_path, libtorrent, is_magnet):
+    def __init__(self, session, torrent_info, save_path, libtorrent, is_magnet, stop_after_download=False):
         self._session = session
         self._torrent_info = torrent_info
         self._save_path = save_path
@@ -16,6 +16,7 @@ class Downloader:
         self._add_torrent_params = None
         self._is_magnet = is_magnet
         self._paused = False
+        self._stop_after_download = stop_after_download
 
     def status(self):
         if not self._is_magnet:
@@ -44,7 +45,11 @@ class Downloader:
                 sys.stdout.flush()
 
             await asyncio.sleep(1)
-        print('\033[92m' +  "\nDownloaded successfully." + '\033[0m')
+        
+        if self._stop_after_download:
+            self.stop()
+        else:
+            print('\033[92m' +  "\nDownloaded successfully." + '\033[0m')
 
     def _get_status_progress(self, s):
         _percentage = s.progress * 100
