@@ -50,6 +50,8 @@ class TorrentDownloader:
     def stop_download(self):
         if self._downloader:
             self._downloader.stop()
+        if self._session:
+            self._session.shutdown()
 
     def __str__(self):
         pass
