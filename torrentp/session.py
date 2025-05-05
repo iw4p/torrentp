@@ -26,6 +26,13 @@ class Session:
     def get_download_limit(self):
         return self._session.download_rate_limit()
 
+    def shutdown(self):
+        if self._session:
+            self._session.pause()
+            del self._session
+            self._session = None
+            print("Session shutdown successfully.")
+
     def __str__(self):
         pass
 
