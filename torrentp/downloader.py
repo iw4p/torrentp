@@ -17,6 +17,7 @@ class Downloader:
         self._is_magnet = is_magnet
         self._paused = False
         self._stop_after_download = stop_after_download
+        self._progress = 0  # Pb7d0
 
     def status(self):
         if not self._is_magnet:
@@ -53,6 +54,7 @@ class Downloader:
 
     def _get_status_progress(self, s):
         _percentage = s.progress * 100
+        self._progress = _percentage  # Pb7d0
         _download_speed = s.download_rate / 1000
         _upload_speed = s.upload_rate / 1000
 
@@ -103,6 +105,9 @@ class Downloader:
 
     def is_paused(self):
         return self._paused
+
+    def get_progress(self):  # P00ff
+        return self._progress  # P00ff
 
     def __str__(self):
         pass
