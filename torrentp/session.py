@@ -1,5 +1,8 @@
+from pedros import get_logger
+
 class Session:
     def __init__(self, libtorrent, port='6881'):
+        self._logger = get_logger()
         self._user_agent = 'python client v0.1'
         self._listen_interfaces = '0.0.0.0'
         self._port = port
@@ -31,7 +34,7 @@ class Session:
             self._session.pause()
             del self._session
             self._session = None
-            print("Session shutdown successfully.")
+            self._logger.info("Session shutdown successfully.")
 
     def __str__(self):
         pass
