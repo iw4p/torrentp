@@ -1,12 +1,11 @@
-"""
-torrentp.
+import logging
 
-A great wrapped library for downloading from torrent.
-"""
+from pedros import setup_logging
+
 from .torrent_downloader import TorrentDownloader
 from .torrent_info import TorrentInfo
-from .downloader import Downloader
-from .session import Session
+
+setup_logging(level=logging.INFO)
 
 __version__ = "0.2.5"
 __author__ = 'Nima Akbarzade'
@@ -18,8 +17,6 @@ PYPI_SIMPLE_ENDPOINT: str = "https://pypi.org/project/torrentp"
 
 __all__ = [
     "TorrentDownloader",
-    "Session",
-    "Downloader",
     "TorrentInfo",
     "PYPI_SIMPLE_ENDPOINT",
 ]
