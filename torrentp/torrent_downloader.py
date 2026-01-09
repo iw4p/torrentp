@@ -87,7 +87,6 @@ class TorrentDownloader:
                 })
             else:
                 self._torrent_handle = self._session.add_torrent(self._add_torrent_params)
-                # Wait for metadata for magnet links
                 while not self._torrent_handle.has_metadata():
                     time.sleep(1)
 
@@ -236,24 +235,6 @@ class TorrentDownloader:
         except Exception as e:
             self._logger.error(f"Failed to shutdown session: {e}")
             # raise
-
-    def is_paused(self) -> bool:
-        """Check if download is paused.
-        
-        Returns:
-            True if download is paused, False otherwise
-        """
-        return self._paused
-
-    def get_download_status(self) -> Optional[lt.torrent_status]:
-        """Get current download status.
-        
-        Returns:
-            Current status of the torrent handle or None if no active download
-        """
-        if self._torrent_handle:
-            return self._torrent_handle.status()
-        return None
 
     @property
     def name(self) -> str:
