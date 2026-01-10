@@ -75,7 +75,7 @@ class TorrentDownloader:
                 self._logger.debug(f"Torrent file loaded: {self._torrent_info.name}")
         except Exception as e:
             self._logger.error(f"Failed to setup torrent: {e}")
-            # raise
+            raise
 
     def _add_torrent_to_session(self) -> lt.torrent_handle:
         """Add torrent to the session and return the handle."""
@@ -94,7 +94,7 @@ class TorrentDownloader:
             return self._torrent_handle
         except Exception as e:
             self._logger.error(f"Failed to add torrent to session: {e}")
-            # raise
+            raise
 
     def set_speed_limits(self, download_speed: int = 0, upload_speed: int = 0) -> None:
         """Set download and upload speed limits.
@@ -130,14 +130,14 @@ class TorrentDownloader:
 
         except Exception as e:
             self._logger.error(f"Download failed: {e}")
-            # raise
+            raise
 
     async def _download_with_progress(self) -> None:
         """Download with progress bar using Rich library."""
         try:
             with Progress(
                     TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
-                    BarColumn(bar_width=None),
+                    BarColumn(),
                     "[progress.percentage]{task.percentage:>3.1f}%",
                     "•",
                     DownloadColumn(),
@@ -148,7 +148,7 @@ class TorrentDownloader:
                     "•",
                     TextColumn("[yellow]{task.fields[status]}"),
                     "•",
-                    TimeRemainingColumn()
+                    TimeRemainingColumn(compact=True, elapsed_when_finished=True)
             ) as progress:
 
                 status = self._torrent_handle.status()
@@ -180,7 +180,7 @@ class TorrentDownloader:
 
         except Exception as e:
             self._logger.error(f"Progress tracking failed: {e}")
-            # raise
+            raise
 
     def pause_download(self) -> None:
         """Pause the current download."""
@@ -209,7 +209,7 @@ class TorrentDownloader:
                 self._logger.warning("No active download to resume")
         except Exception as e:
             self._logger.error(f"Failed to resume download: {e}")
-            # raise
+            raise
 
     def stop_download(self) -> None:
         """Stop the current download and cleanup."""
@@ -234,7 +234,7 @@ class TorrentDownloader:
                 self._logger.debug("Session shutdown successfully")
         except Exception as e:
             self._logger.error(f"Failed to shutdown session: {e}")
-            # raise
+            raise
 
     @property
     def name(self) -> str:
