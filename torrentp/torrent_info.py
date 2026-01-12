@@ -17,16 +17,16 @@ class TorrentInfo:
         files: List of files in the torrent (optional)
     """
     path: str
-    libtorrent: lt
+    libtorrent: type[lt]
     info: Optional[lt.torrent_info] = None
     name: Optional[str] = None
     size: Optional[int] = None
     files: Optional[list] = None
-    
+
     def __post_init__(self):
         """Initialize torrent info after dataclass creation."""
         self.load_torrent_info()
-    
+
     def load_torrent_info(self) -> None:
         """Load and parse torrent information."""
         try:
