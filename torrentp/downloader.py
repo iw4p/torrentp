@@ -70,8 +70,6 @@ class Downloader:
 
         if self._stop_after_download:
             self.stop()
-        else:
-            print('\033[92m' + "\nDownloaded successfully." + '\033[0m')
 
     def pause(self):
         print("Pausing download...")
