@@ -1,7 +1,16 @@
-import sys
 import asyncio
-import math
 import time
+
+from rich.progress import (
+    BarColumn,
+    DownloadColumn,
+    Progress,
+    TaskProgressColumn,
+    TextColumn,
+    TimeRemainingColumn,
+    TransferSpeedColumn
+)
+
 
 class Downloader:
     def __init__(self, session, torrent_info, save_path, libtorrent, is_magnet, stop_after_download=False):
@@ -27,7 +36,7 @@ class Downloader:
             self._add_torrent_params.save_path = self._save_path
             self._file = self._session.add_torrent(self._add_torrent_params)
             self._status = self._file.status()
-            while(not self._file.has_metadata()):
+            while (not self._file.has_metadata()):
                 time.sleep(1)
         return self._status
 
@@ -37,39 +46,32 @@ class Downloader:
         return self._name
 
     async def download(self):
-        self.get_size_info(self.status().total_wanted)
+        pbar = Progress(
+            TextColumn("[bold blue]{task.description}", justify="right"),
+            BarColumn(),
+            TaskProgressColumn(),
+            DownloadColumn(),
+            TransferSpeedColumn(),
+            # TextColumn("[orange1]{task.fields[peers]} peers"), # Number of peers
+            # TextColumn("[purple]{task.fields[status]}"), # current status
+            TimeRemainingColumn(compact=True, elapsed_when_finished=True),
+        )
 
-        while not self._status.is_seeding:
-            if not self._paused:
-                self._get_status_progress(self.status())
-                sys.stdout.flush()
+        with pbar:
+            status = self.status()
+            task_id = pbar.add_task(f"{status.name}", total=status.total_wanted, peers=0, status=status.state)
 
-            await asyncio.sleep(1)
-        
+            while not status.is_seeding:
+                if not self._paused:
+                    status = self.status()
+                    pbar.update(task_id, completed=status.total_done, peers=status.num_peers, status=status.state)
+
+                await asyncio.sleep(1)
+
         if self._stop_after_download:
             self.stop()
         else:
-            print('\033[92m' +  "\nDownloaded successfully." + '\033[0m')
-
-    def _get_status_progress(self, s):
-        _percentage = s.progress * 100
-        _download_speed = s.download_rate / 1000
-        _upload_speed = s.upload_rate / 1000
-
-        counting = math.ceil(_percentage / 5)
-        visual_loading = '#' * counting + ' ' * (20 - counting)
-        _message = "\r\033[42m %.1f Kb/s \033[0m|\033[46m up: %.1f Kb/s \033[0m| status: %s | peers: %d  \033[96m|%s|\033[0m %d%%" % (_download_speed, _upload_speed, s.state, s.num_peers, visual_loading, _percentage)
-        print(_message, end='')
-
-    def get_size_info(self, byte_length):
-        if not self._is_magnet:
-            _file_size = byte_length / 1000
-            _size_info = 'Size: %.2f ' % _file_size
-            _size_info += 'MB' if _file_size > 1000 else 'KB'
-            print('\033[95m' + _size_info  + '\033[0m')
-
-        if self.status().name:
-            print('\033[95m' + f'Saving as: {self.status().name}' + '\033[0m')
+            print('\033[92m' + "\nDownloaded successfully." + '\033[0m')
 
     def pause(self):
         print("Pausing download...")
