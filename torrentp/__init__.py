@@ -3,12 +3,18 @@ torrentp.
 
 A great wrapped library for downloading from torrent.
 """
-from .torrent_downloader import TorrentDownloader
-from .torrent_info import TorrentInfo
+import logging
+
+from pedros import setup_logging
+
 from .downloader import Downloader
 from .session import Session
+from .torrent_downloader import TorrentDownloader
+from .torrent_info import TorrentInfo
 
-__version__ = "0.2.5"
+setup_logging(level=logging.WARNING)
+
+__version__ = "0.2.6"
 __author__ = 'Nima Akbarzade'
 __author_email__ = "iw4p@protonmail.com"
 __license__ = "BSD 2-clause"
