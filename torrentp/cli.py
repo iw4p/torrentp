@@ -1,6 +1,9 @@
 from .torrent_downloader import TorrentDownloader
 import asyncclick as click
 import asyncio
+from pedros import get_logger
+
+logger = get_logger(__name__)
 
 async def handle_input(torrent_file):
     while True:
@@ -11,10 +14,10 @@ async def handle_input(torrent_file):
             torrent_file.resume_download()
         elif action.lower() == 'stop':
             torrent_file.stop_download()
-            print("The Program is exiting...")
+            logger.info("The Program is exiting...")
             raise SystemExit
         else:
-            print("Invalid action. Please enter 'pause', 'resume', or 'stop'.")
+            logger.warning("Invalid action. Please enter 'pause', 'resume', or 'stop'.")
 
 @click.command()
 @click.option('--link', required=True, help="Torrent link. Example: [--link 'file.torrent'] or [--link 'magnet:...']", type=str)
@@ -32,7 +35,7 @@ async def run_cli(link, download_speed, upload_speed, save_path, stop_after_down
         await asyncio.gather(input_task, download_task)
 
     except asyncio.TimeoutError or KeyboardInterrupt:
-        print("The Program is terminated manually!")
+        logger.info("The Program is terminated manually!")
         raise SystemExit
 
 

@@ -1,5 +1,8 @@
 import asyncio
 import time
+from pedros import get_logger
+
+logger = get_logger(__name__)
 
 from rich.progress import (
     BarColumn,
@@ -28,16 +31,20 @@ class Downloader:
         self._stop_after_download = stop_after_download
 
     def status(self):
-        if not self._is_magnet:
-            self._file = self._session.add_torrent({'ti': self._torrent_info, 'save_path': f'{self._save_path}'})
-            self._status = self._file.status()
-        else:
-            self._add_torrent_params = self._torrent_info
-            self._add_torrent_params.save_path = self._save_path
-            self._file = self._session.add_torrent(self._add_torrent_params)
-            self._status = self._file.status()
-            while (not self._file.has_metadata()):
-                time.sleep(1)
+        if self._file is None:
+            if not self._is_magnet:
+                self._file = self._session.add_torrent({'ti': self._torrent_info, 'save_path': f'{self._save_path}'})
+                logger.info(f"Torrent {self._file.status().name} added.")
+            else:
+                self._add_torrent_params = self._torrent_info
+                self._add_torrent_params.save_path = self._save_path
+                self._file = self._session.add_torrent(self._add_torrent_params)
+                logger.info("Fetching magnet metadata...")
+                while not self._file.has_metadata():
+                    time.sleep(1)
+                logger.info("Metadata fetched successfully.")
+
+        self._status = self._file.status()
         return self._status
 
     @property
@@ -64,42 +71,40 @@ class Downloader:
             while not status.is_seeding:
                 if not self._paused:
                     status = self.status()
-                    pbar.update(task_id, completed=status.total_done, peers=status.num_peers, status=status.state)
+                    pbar.update(task_id, completed=status.total_done, total=status.total_wanted, peers=status.num_peers, status=status.state)
 
                 await asyncio.sleep(1)
 
+        logger.info(f"Download of {status.name} completed.")
         if self._stop_after_download:
             self.stop()
 
     def pause(self):
-        print("Pausing download...")
         if self._file:
             self._file.pause()
             self._paused = True
-            print("Download paused successfully.")
+            logger.info("Download paused successfully.")
         else:
-            print("Download file instance not found.")
+            logger.error("Download file instance not found.")
 
     def resume(self):
-        print("Resuming download...")
         if self._file:
             if self._paused:
                 self._file.resume()
                 self._paused = False
-                print("Download resumed successfully.")
+                logger.info("Download resumed successfully.")
             else:
-                print("Download is not paused. No action taken.")
+                logger.warning("Download is not paused. No action taken.")
         else:
-            print("Download file instance not found.")
+            logger.error("Download file instance not found.")
 
     def stop(self):
-        print("Stopping download...")
         if self._file:
             self._session.remove_torrent(self._file)
             self._file = None
-            print("Download stopped successfully.")
+            logger.info("Download stopped successfully.")
         else:
-            print("Download file instance not found.")
+            logger.error("Download file instance not found.")
 
     def is_paused(self):
         return self._paused
